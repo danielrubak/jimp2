@@ -2,6 +2,6 @@
 #include "ReverseString.h"
 
 int main() {
-    std::cout << "factorial of 20 is: " << reverse("napis") << std::endl;
+    std::cout << "Result of reverse function: " << reverse("REVERSE") << std::endl;
     return 0;
 }
