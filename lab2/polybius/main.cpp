@@ -15,13 +15,18 @@ int main( int argc, char* argv[] ) {
     std::string outputMessage;
 
     std::ifstream myInputFile(inputFilePath);
-    if(!myInputFile.good())
+    if(!myInputFile.good()) {
         std::cout << "Input file error!" << std::endl;
+        return EXIT_FAILURE;
+    }
+
     getline(myInputFile, inputMessage);
 
     std::ofstream myOutputFile(outputFilePath);
-    if(!myOutputFile.good())
+    if(!myOutputFile.good()) {
         std::cout << "Output file error!" << std::endl;
+        return EXIT_FAILURE;
+    }
 
     if ( conversionOption == "1" ) {
         // encrypt
@@ -30,7 +35,6 @@ int main( int argc, char* argv[] ) {
         myOutputFile << encryptedMessage;
     } else if ( conversionOption == "0") {
         // decrypt
-        inputMessage = "32154343112215";
         std::string decryptedMessage = PolybiusDecrypt(inputMessage);
         std::cout << decryptedMessage << std::endl;
         myOutputFile << decryptedMessage;
