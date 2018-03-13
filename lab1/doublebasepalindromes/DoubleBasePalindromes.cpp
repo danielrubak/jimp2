@@ -1,6 +1,6 @@
 #include "DoubleBasePalindromes.h"
 
-std::string decimal2binary(int dec)
+std::string Decimal2Binary(int dec)
 {
     std::string bin;
     while( dec!=0 ) {
@@ -10,7 +10,7 @@ std::string decimal2binary(int dec)
     return bin;
 }
 
-bool is_palindrome(std::string str) {
+bool IsPalindrome(std::string str) {
     if (str == std::string(str.rbegin(), str.rend()))
         return true;
     else
@@ -22,7 +22,7 @@ uint64_t DoubleBasePalindromes(int max_vaule_exculsive)
     uint64_t counter = 0;
     for ( int i = 1; i < max_vaule_exculsive; i++ ) {
         std::string decValue = std::to_string(i);
-        if( is_palindrome(decValue) && is_palindrome(decimal2binary(i)) )
+        if( IsPalindrome(decValue) && IsPalindrome(Decimal2Binary(i)) )
             counter += i;
     }
     return counter;
