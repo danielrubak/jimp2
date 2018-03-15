@@ -1,5 +1,13 @@
 ### C++ programming classes problmes ###
 
+[![Build Status](https://travis-ci.org/danielrubak/jimp2.svg?branch=master)](https://travis-ci.org/danielrubak/jimp2)
+[![Build status](https://ci.appveyor.com/api/projects/status/1vi44pj8en068lrn?svg=true)](https://ci.appveyor.com/project/danielrubak/jimp2)
+
+After cloning please replace badges with your project's badges
+
+For [travis](https://travis-ci.org) replace in the README.md micwypych with your nickname from github and cpp-exercises with your project name on github
+For [appveyor](https://ci.appveyor.com), go to the settings -> badges -> sample markdown code and replace second badge code
+
 #### CLion CMakeLists.txt template ####
 
 In order to create new solution faster one can define template file 
