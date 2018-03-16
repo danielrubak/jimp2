@@ -26,3 +26,21 @@ void tinyurl::NextHash(std::array<char, 6> *state) {
         }
     }
 }
+
+std::string tinyurl::Encode(const std::string &url, std::unique_ptr<tinyurl::TinyUrlCodec> *codec) {
+    NextHash( &(codec->get()->hashArray) );
+    std::string tinyUrl = "";
+    for ( int i = 0; i < 6; i++ ) {
+        tinyUrl += codec->get()->hashArray[i];
+    }
+    codec->get()->urlToTinyUrlMap.insert( std::pair<std::string, std::string> (tinyUrl, url) );
+    return tinyUrl;
+}
+
+std::string tinyurl::Decode(const std::unique_ptr<tinyurl::TinyUrlCodec> &codec, const std::string &hash) {
+    auto iter = codec->urlToTinyUrlMap.find(hash);
+    if ( iter == codec->urlToTinyUrlMap.end() ) {
+        return "";
+    } else
+        return (*iter).second;
+}
