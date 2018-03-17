@@ -1,39 +1,39 @@
 #include "Point.h"
 
-Point::Point(): x_(0),y_(0) {
+::geometry::Point::Point(): x_(0),y_(0) {
     //std::cout << "Non-parametric constructor" << std::endl;
 }
 
-Point::Point(double x, double y) {
+::geometry::Point::Point(double x, double y) {
     //std::cout << "Parametric constructor" << std::endl;
     x_ = x;
     y_ = y;
 }
 
-Point::~Point() {
+::geometry::Point::~Point() {
     //std::cout << "Destructor of the point: (" << this->GetX() << "; " << this->GetY() << ")" << std::endl;
 }
 
-double Point::Distance(const Point &other) const{
+double ::geometry::Point::Distance(const ::geometry::Point &other) const{
     return std::sqrt(pow((other.GetX() - this->GetX()), 2) + pow((other.GetY() - this->GetY()), 2));
 }
 
-void Point::ToString(std::ostream *out) const{
+void ::geometry::Point::ToString(std::ostream *out) const{
     (*out) << "Coordinates of the point: (" << this->GetX() << "; " << this->GetY() << ")" << std::endl;
 }
 
-double Point::GetX() const {
+double ::geometry::Point::GetX() const {
     return x_;
 }
 
-double Point::GetY() const {
+double ::geometry::Point::GetY() const {
     return y_;
 }
 
-void Point::SetX(double x) {
+void ::geometry::Point::SetX(double x) {
     this->x_ = x;
 }
 
-void Point::SetY(double y) {
+void ::geometry::Point::SetY(double y) {
     this->y_ = y_;
 }

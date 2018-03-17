@@ -4,7 +4,8 @@
 #include <iostream>
 #include <cmath>
 
-class Point {
+namespace  geometry {
+    class Point {
     public:
         Point();
         Point(double x, double y);
@@ -17,6 +18,8 @@ class Point {
         void SetY(double y);
     private:
         double x_, y_;
-};
+    };
+}
+
 
 #endif  // PROJECTNAME_PATH_POINT_H_

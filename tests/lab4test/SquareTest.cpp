@@ -7,7 +7,8 @@
 #include <memory>
 #include <MemLeakTest.h>
 #include <StringUtility.h>
-#include <Square.h>
+#include "../../lab4/point/Point.h"
+#include "../../lab4/square/Square.h"
 
 using ::geometry::Point;
 using ::geometry::Square;
