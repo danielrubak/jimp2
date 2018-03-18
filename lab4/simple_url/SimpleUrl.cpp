@@ -7,6 +7,10 @@ nets::SimpleUrl::SimpleUrl(std::string url) {
     this->urlAddress = url;
 }
 
+nets::SimpleUrl::~SimpleUrl() {
+
+};
+
 std::string nets::SimpleUrl::GetUrl() const {
     return this->urlAddress;
 }
@@ -62,7 +66,7 @@ uint16_t nets::SimpleUrl::Port() const {
     } else if ( scheme == "mailto") {
         return 0;
     } else if ( scheme == "ftp" ) {
-        std::regex port_pattern("(:[0-9]+");
+        std::regex port_pattern("(:[0-9]+)");
         std::smatch port_match_result;
         std::string url = this->GetUrl();
         if ( std::regex_search(url, port_match_result, port_pattern) ) {

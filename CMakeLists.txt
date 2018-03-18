@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(jimp_exercises)
+project(jimp2)
 
 set(CMAKE_CXX_STANDARD 14)
 

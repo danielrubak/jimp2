@@ -2,7 +2,7 @@ project(lab4)
 
 add_subdirectory_if_exists(point)
 add_subdirectory_if_exists(square)
-add_subdirectory_if_exists(netsurl)
+add_subdirectory_if_exists(simple_url)
 add_subdirectory_if_exists(netstemplateengine)
 add_subdirectory_if_exists(netsjson)
 add_subdirectory_if_exists(modelnames)

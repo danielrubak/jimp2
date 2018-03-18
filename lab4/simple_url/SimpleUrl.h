@@ -14,6 +14,7 @@ namespace nets {
     public:
         SimpleUrl();
         SimpleUrl(std::string url);
+        ~SimpleUrl();
         std::string GetUrl() const;
         std::string Login() const;
         std::string Host() const;
