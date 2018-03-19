@@ -4,6 +4,11 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <algorithm>
+#include <sstream>
+#include <vector>
+#include <iterator>
+#include <cmath>
 
 namespace datastructures {
     struct SmartTree {
@@ -17,6 +22,7 @@ namespace datastructures {
     std::unique_ptr <SmartTree> InsertRightChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> right_subtree);
     void PrintTreeInOrder(const std::unique_ptr<SmartTree> &unique_ptr, std::ostream *out);
     std::string DumpTree(const std::unique_ptr<SmartTree> &tree);
+    std::string PrintLeaf(const std::unique_ptr<SmartTree> &tree);
     std::unique_ptr <SmartTree> RestoreTree(const std::string &tree);
 }
 #endif //JIMP2_SMARTTREE_H
