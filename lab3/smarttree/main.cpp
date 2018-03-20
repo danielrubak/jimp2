@@ -12,8 +12,11 @@ int main() {
     auto tree = DumpTree(root);
     std::cout << tree << std::endl;
 
-    std::string str = "[99 [100 [1234 [none] [none]] [4321 [none] [none]]] [88 [897 [none] [none]] [761 [none] [none]]]]";
-    auto tree_2 = datastructures::RestoreTree(str);
-
+    std::string str1 = "[-189 [17 [none] [-90 [none] [none]]] [none]]";
+    std::string str2 = "[99 [100 [1234 [none] [none]] [4321 [none] [none]]] [88 [897 [none] [none]] [761 [none] [none]]]]";
+    std::string str3 = "[99 [100 [none] [none]] [88 [none] [none]]]";;
+    auto restore_root = datastructures::RestoreTree(str1);
+    tree = DumpTree(restore_root);
+    std::cout << tree << std::endl;
     return 0;
 }

@@ -53,19 +53,78 @@ std::string datastructures::DumpTree(const std::unique_ptr<datastructures::Smart
 }
 
 std::unique_ptr<datastructures::SmartTree> datastructures::RestoreTree(const std::string &tree) {
-    std::string string_to_erase = tree;
-    string_to_erase.erase(std::remove(string_to_erase.begin(), string_to_erase.end(), '['), string_to_erase.end());
-    string_to_erase.erase(std::remove(string_to_erase.begin(), string_to_erase.end(), ']'), string_to_erase.end());
-    std::cout << string_to_erase << std::endl;
-    std::istringstream iss(string_to_erase);
-    std::vector<std::string> tree_values_vector {std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>{}};
-    std::unique_ptr<datastructures::SmartTree> root;
-    if ( tree_values_vector.size() == 0 ) {
-        return nullptr;
-    } else if ( tree_values_vector.size() == 3 ) {
-        int value;
-        std::istringstream(tree_values_vector[0]) >> value;
-        root = CreateLeaf(value);
+    std::string values;
+    std::queue <char> bracketsQueue;
+    std::queue <std::string> valuesQueue;
+
+    for ( auto it = tree.begin(); it!= tree.end(); it++ ) { ;
+        if ( isdigit(*it) || *it == '-' ) {
+            values += *it;
+        } else if (isspace(*it)) {
+            values += " ";
+        } else if ( isalpha(*it) ) {
+            values += *it;
+        } else {
+            bracketsQueue.push(*it);
+        }
     }
-    return root;
+    std::cout << "Restore tree: " << tree << std::endl;
+
+    std::istringstream buffer(values);
+    std::vector<std::string> leafs_values_vector ((std::istream_iterator<std::string>(buffer)), std::istream_iterator<std::string>());
+    for ( auto it = leafs_values_vector.begin(); it!= leafs_values_vector.end(); it++ ) {
+        valuesQueue.push(*it);
+    }
+
+    std::cout << "Brackets number: " << bracketsQueue.size() << std::endl;
+    std::cout << "Values number: " << valuesQueue.size() << std::endl;
+    std::unique_ptr<SmartTree> root;
+    auto tree_root = CreateLeafOnPosition(root, bracketsQueue, valuesQueue);
+    return tree_root;
+}
+
+std::unique_ptr <datastructures::SmartTree> datastructures::CreateLeafOnPosition (std::unique_ptr <datastructures::SmartTree> &tree, std::queue<char > &brackets, std::queue<std::string> &values) {
+    if ( !tree ) {
+        if ( brackets.front() == '[' && values.front() == "none" )
+            return nullptr;
+        else {
+            int value = 0;
+            std::istringstream ( values.front() ) >> value;
+            tree = CreateLeaf(value);
+            brackets.pop();
+            values.pop();
+        }
+        return CreateLeafOnPosition(tree, brackets, values);
+    } else {
+        // left side of tree
+        if ( brackets.front() == '[' && values.front() != "none" ) {
+            int value = 0;
+            std::istringstream ( values.front() ) >> value;
+            tree = InsertLeftChild(std::move(tree), CreateLeaf(value));
+            brackets.pop();
+            values.pop();
+            tree->left = CreateLeafOnPosition(tree->left, brackets, values);
+            brackets.pop();
+        } else {
+            brackets.pop();
+            brackets.pop();
+            values.pop();
+        }
+
+        //right side of tree
+        if ( brackets.front() == '[' && values.front() != "none" ) {
+            int value = 0;
+            std::istringstream ( values.front() ) >> value;
+            tree = InsertRightChild(std::move(tree), CreateLeaf(value));
+            brackets.pop();
+            values.pop();
+            tree->right = CreateLeafOnPosition(tree->right, brackets, values);
+            brackets.pop();
+        } else {
+            brackets.pop();
+            brackets.pop();
+            values.pop();
+        }
+    }
+    return std::move(tree);
 }

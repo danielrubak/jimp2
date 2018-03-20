@@ -9,6 +9,7 @@
 #include <vector>
 #include <iterator>
 #include <cmath>
+#include <queue>
 
 namespace datastructures {
     struct SmartTree {
@@ -24,5 +25,6 @@ namespace datastructures {
     std::string DumpTree(const std::unique_ptr<SmartTree> &tree);
     std::string PrintLeaf(const std::unique_ptr<SmartTree> &tree);
     std::unique_ptr <SmartTree> RestoreTree(const std::string &tree);
+    std::unique_ptr <SmartTree> CreateLeafOnPosition (std::unique_ptr <SmartTree> &tree, std::queue<char > &brackets, std::queue<std::string> &values);
 }
 #endif //JIMP2_SMARTTREE_H
