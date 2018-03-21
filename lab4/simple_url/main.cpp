@@ -2,8 +2,6 @@
 
 
 int main() {
-    std::vector <std::string> vec = {"mailto:someone@example.com"};
-
     //auto firstStr = std::make_unique<nets::SimpleUrl>("mailto:someone@example.com?subject=This%20is%20the%20subject&cc=someone_else@example.com&body=This%20is%20the%20body");
     //auto firstStr = std::make_unique<nets::SimpleUrl>("https://en.wikipedia.org/wiki/Uniform_Resource_Locator");
     auto firstStr = std::make_unique<nets::SimpleUrl>("ftp://demo.wftpserver.com:2222");

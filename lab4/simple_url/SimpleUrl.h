@@ -15,7 +15,6 @@ namespace nets {
         SimpleUrl();
         SimpleUrl(std::string url);
         ~SimpleUrl();
-        std::string GetUrl() const;
         std::string Login() const;
         std::string Host() const;
         std::string Path() const;
@@ -24,7 +23,13 @@ namespace nets {
         std::string Query() const;
         std::string Fragment() const;
     private:
-        std::string urlAddress;
+        std::string scheme;
+        std::string login;
+        std::string host;
+        uint16_t port;
+        std::string path;
+        std::string query;
+        std::string fragment;
     };
 }
 
