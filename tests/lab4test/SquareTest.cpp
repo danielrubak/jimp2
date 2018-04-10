@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 #include <tuple>
 #include <memory>
+#include <cmath>
 #include <MemLeakTest.h>
 #include <StringUtility.h>
 #include "../../lab4/point/Point.h"

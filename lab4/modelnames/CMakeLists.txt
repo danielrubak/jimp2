@@ -1,12 +1,12 @@
 
-project(modelnames)
+project(name)
 
-set(HEDEAR_FILES ModelNames.h)
-set(SOURCE_FILES ModelNames.cpp)
+set(HEDEAR_FILES Name.h)
+set(SOURCE_FILES Name.cpp)
 
-add_library(libmodelnames STATIC ${SOURCE_FILES})
-target_include_directories(libmodelnames PUBLIC .)
+add_library(libname STATIC ${SOURCE_FILES})
+target_include_directories(libname PUBLIC .)
 
-add_executable(modelnames ${SOURCE_FILES} main.cpp)
+add_executable(name ${SOURCE_FILES} main.cpp)
 
-target_link_libraries(modelnames libmodelnames)
+target_link_libraries(name libname)
