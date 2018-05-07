@@ -3,7 +3,7 @@ include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
 
 set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
-set(EXAMPLELIBRARY_SRC ExampleLibraryTest.cpp)
+set(EXAMPLELIBRARY_SRC ExampleLibraryTest.cpp ../../lab8/moviesubtitles/MovieSubtitles.cpp ../../lab8/moviesubtitles/MovieSubtitles.h ../../lab8/moviesubtitles/main.cpp)
 
 add_executable(example_examplelibrary_tests ${EXAMPLELIBRARY_SRC})
 
