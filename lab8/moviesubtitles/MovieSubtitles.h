@@ -20,6 +20,11 @@ namespace moviesubs
         void ShiftAllSubtitlesBy(int offset_in_micro_seconds, int frame_per_second, std::istream *in, std::ostream *out) override;
     };
 
+    class SubRipSubtitles : public MovieSubtitles {
+    public:
+        void ShiftAllSubtitlesBy(int offset_in_micro_seconds, int frame_per_second, std::istream *in, std::ostream *out) override;
+    };
+
     class SubtitlesException : public std::invalid_argument {
     public:
         SubtitlesException (std::string &message, int number);
@@ -46,6 +51,11 @@ namespace moviesubs
     class OutOfOrderFrames : public SubtitlesException {
     public:
         OutOfOrderFrames(std::string &message, int number);
+    };
+
+    class MissingTimeSpecification : public SubtitlesException {
+    public:
+        MissingTimeSpecification(std::string &message, int number);
     };
 }
 
