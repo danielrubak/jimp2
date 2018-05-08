@@ -9,6 +9,8 @@
 
 namespace moviesubs
 {
+    std::string addOffsetToString (std::string t, int offset, int line);
+
     class MovieSubtitles {
     public:
         virtual void ShiftAllSubtitlesBy(int offset_in_micro_seconds, int frame_per_second, std::istream *in, std::ostream *out) = 0;
