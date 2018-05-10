@@ -6,6 +6,7 @@
 
 namespace academia {
     class Serializer;
+
     class Serializable {
     public:
         virtual void Serialize(Serializer *s) = 0;
@@ -23,15 +24,24 @@ namespace academia {
                         const std::vector<std::reference_wrapper<const Serializable>> &value) = 0;
         virtual void Header(const std::string &object_name) = 0;
         virtual void Footer(const std::string &object_name) = 0;
+    private:
+        std::ostream *serializer_out;
     };
 
     class Room : public Serializable {
     public:
         enum class Type {
-            COMPUTER_LAB
+            COMPUTER_LAB,
+            LECTURE_HALL,
+            CLASSROOM
         };
         Room (int id, std::string room_name, Type type);
         void Serialize(Serializer *s) override;
+        std::string roomTypeToString(Type type);
+    private:
+        int id;
+        std::string room_name;
+        Type room_type;
     };
 }
 
