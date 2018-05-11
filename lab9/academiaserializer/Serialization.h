@@ -12,6 +12,7 @@ namespace academia {
     class Serializable {
     public:
         virtual void Serialize(Serializer *serializer) = 0;
+        virtual void Serialize(Serializer *serializer) const = 0;
     };
 
     class Room : public Serializable {
@@ -23,7 +24,8 @@ namespace academia {
         };
         Room (int id, const std::string roomName, Type type);
         void Serialize(Serializer *serializer) override;
-        std::string roomTypeToString(Type type);
+        void Serialize(Serializer *serializer) const override;
+        std::string roomTypeToString(Type type) const;
     private:
         int mId;
         std::string mRoomName;
@@ -34,6 +36,7 @@ namespace academia {
     public:
         Building(int id, const std::string buildingName, const std::vector<std::reference_wrapper<const Serializable>> &rRooms);
         void Serialize(Serializer *serializer) override;
+        void Serialize(Serializer *serializer) const override;
     private:
         int mId;
         std::string mBuildingName;
@@ -63,9 +66,9 @@ namespace academia {
         void DoubleField(const std::string &field_name, double value) override;
         void StringField(const std::string &field_name, const std::string &value) override;
         void BooleanField(const std::string &field_name, bool value) override;
-        void SerializableField(const std::string &field_name, const academia::Serializable &value) override;
+        void SerializableField(const std::string &field_name, const Serializable &value) override;
         void ArrayField(const std::string &field_name,
-                        const std::vector<std::reference_wrapper<const academia::Serializable>> &value) override;
+                        const std::vector<std::reference_wrapper<const Serializable>> &value) override;
         void Header(const std::string &object_name) override;
         void Footer(const std::string &object_name) override;
         void IsStreamEmpty();
@@ -73,7 +76,5 @@ namespace academia {
         bool mStreamIsEmpty = true;
     };
 }
-
-
 
 #endif //JIMP2_SERIALIZATION_H
