@@ -5,6 +5,8 @@
 #include <vector>
 #include <functional>
 #include <iostream>
+#include <experimental/optional>
+#include <algorithm>
 
 namespace academia {
     class Serializer;
@@ -34,13 +36,27 @@ namespace academia {
 
     class Building : public Serializable{
     public:
-        Building(int id, const std::string buildingName, const std::vector<std::reference_wrapper<const Serializable>> &rRooms);
+        Building(int id, const std::string buildingName, const std::vector<Room> &rRooms);
         void Serialize(Serializer *serializer) override;
         void Serialize(Serializer *serializer) const override;
+        int Id() const;
+        bool operator==(const Building otherBuilding) const;
+        std::vector<std::reference_wrapper<const Serializable>> getRooms() const;
     private:
         int mId;
         std::string mBuildingName;
-        const std::vector<std::reference_wrapper<const Serializable>> mRoomsVector;
+        const std::vector<Room> mRoomsVector;
+    };
+
+    class BuildingRepository {
+    public:
+        BuildingRepository(const std::initializer_list<Building> &buildings) : mBuildingVectors{buildings}{};
+        void Add(Building new_building);
+        void StoreAll(Serializer *serializer) const;
+        std::vector< std::reference_wrapper<const Serializable> > getBuildings() const;
+        std::experimental::optional<Building> operator[](int buildingId) const;
+    private:
+        std::vector<Building> mBuildingVectors;
     };
 
     class Serializer {
@@ -83,9 +99,9 @@ namespace academia {
         void DoubleField(const std::string &field_name, double value) override;
         void StringField(const std::string &field_name, const std::string &value) override;
         void BooleanField(const std::string &field_name, bool value) override;
-        void SerializableField(const std::string &field_name, const academia::Serializable &value) override;
+        void SerializableField(const std::string &field_name, const Serializable &value) override;
         void ArrayField(const std::string &field_name,
-                        const std::vector<std::reference_wrapper<const academia::Serializable>> &value) override;
+                        const std::vector<std::reference_wrapper<const Serializable>> &value) override;
         void Header(const std::string &object_name) override;
         void Footer(const std::string &object_name) override;
     };

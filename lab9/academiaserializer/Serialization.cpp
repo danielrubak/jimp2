@@ -46,14 +46,14 @@ std::string Room::roomTypeToString(Room::Type type) const {
 // ##### Building class #####
 // ##########################
 
-Building::Building(int id, const std::string buildingName, const std::vector<std::reference_wrapper<const Serializable>> &rRooms) :
+Building::Building(int id, const std::string buildingName, const std::vector<Room> &rRooms) :
         mId(id), mBuildingName(buildingName), mRoomsVector(rRooms) {}
 
 void Building::Serialize(Serializer *serializer) {
     serializer->Header("building");
     serializer->IntegerField("id", mId);
     serializer->StringField("name", mBuildingName);
-    serializer->ArrayField("rooms", mRoomsVector);
+    serializer->ArrayField("rooms", getRooms());
     serializer->Footer("building");
 }
 
@@ -61,8 +61,26 @@ void Building::Serialize(Serializer *serializer) const {
     serializer->Header("building");
     serializer->IntegerField("id", mId);
     serializer->StringField("name", mBuildingName);
-    serializer->ArrayField("rooms", mRoomsVector);
+    serializer->ArrayField("rooms", getRooms());
     serializer->Footer("building");
+}
+
+int Building::Id() const {
+    return mId;
+}
+
+bool Building::operator==(const Building otherBuilding) const {
+    if ( mBuildingName == otherBuilding.mBuildingName )
+        return true;
+    return false;
+}
+
+std::vector<std::reference_wrapper<const Serializable>> Building::getRooms() const {
+    std::vector<std::reference_wrapper<const Serializable>> roomsVector;
+    for ( const Serializable &room: mRoomsVector ) {
+        roomsVector.emplace_back(room);
+    }
+    return roomsVector;
 }
 
 // ################################
@@ -169,3 +187,36 @@ void XmlSerializer::Header(const std::string &object_name) {
 void XmlSerializer::Footer(const std::string &object_name) {
     *pSerializerOut << "<\\" << object_name << ">";
 }
+
+// ##############################
+// ##### BuildingRepository #####
+// ##############################
+
+void BuildingRepository::Add(Building newBuilding) {
+    if ( std::find(mBuildingVectors.begin(), mBuildingVectors.end(), newBuilding) == mBuildingVectors.end() ) {
+        mBuildingVectors.push_back(newBuilding);
+    }
+}
+
+void BuildingRepository::StoreAll(Serializer *serializer) const {
+    serializer->Header("building_repository");
+    serializer->ArrayField("buildings", getBuildings());
+    serializer->Footer("building_repository");
+}
+
+std::vector<std::reference_wrapper<const Serializable>> BuildingRepository::getBuildings() const {
+    std::vector< std::reference_wrapper<const Serializable> > roomsVector;
+    for ( const Serializable &building: mBuildingVectors ){
+        roomsVector.emplace_back(building);
+    }
+    return roomsVector;
+}
+
+std::experimental::optional<Building> BuildingRepository::operator[](int buildingId) const {
+    for ( const Building &building: mBuildingVectors ) {
+        if ( building.Id() == buildingId ) {
+            return building;
+        }
+    }
+}
+
